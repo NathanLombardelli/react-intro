@@ -1,5 +1,10 @@
 import '../css/Todos.css';
 
+/**
+ * component React : Checkbox + text
+ * @param props la balise de même nom dans app.jsx
+ * @returns {JSX.Element} Élément JSX (React)
+ */
 export const Todos = (props) => {
 
   return (
