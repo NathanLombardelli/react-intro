@@ -14,6 +14,24 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.AddToDo{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.AddToDo input{
+  height: 40px;
+  width: 100%;
+}
+
+.AddToDo button{
+  margin-top: 15px;
+  align-self: center;
+  height: 40px;
+  width: 100px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -26,9 +44,13 @@ a:hover {
 body {
   margin: 0;
   display: flex;
+  flex-direction: column;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  width: 90%;
+}
+
+hr{
+  width: inherit;
 }
 
 h1 {

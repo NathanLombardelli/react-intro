@@ -1,0 +1,15 @@
+.Todos{
+    display: flex;
+    font-size: 24px;
+    justify-content: center;
+
+}
+.Todos input[type="checkbox"]{
+    margin-right: 25px;
+    width: 25px;
+}
+
+p{
+    width: 350px;
+}
+
