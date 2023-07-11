@@ -11,9 +11,9 @@ export const InputAdd = (props) => {
             <input placeholder={props.placeHolder} id={"InputAdd"}></input>
             <div className="flex">
                 <label>From :</label>
-                <input type={"date"} className="inputDate"/>
+                <input type={"date"} className="inputDate" id={"InputFrom"} />
                 <label>To :</label>
-                <input type={"date"} className="inputDate"/>
+                <input type={"date"} className="inputDate" id={"InputTo"} />
             </div>
             <button onClick={props.onClick}>{props.buttonText}</button>
         </div>

@@ -3,9 +3,10 @@ import {InputAdd} from "./assets/InputAdd.jsx";
 import {Title} from "./assets/Title.jsx";
 import React, { useState } from 'react';
 import {Todos} from "./assets/Todos.jsx";
-import Calendar from 'react-calendar'
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
-
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 /**
  * Se qui sera ajouter dans le HTML (voir main.jsx)
@@ -16,6 +17,10 @@ function App() {
     // Permet de mettre a jour sans recharger la page ?
     // c'est une liste de string (textes) qui permettra de créer les checkbox + text (Todos)
     const [components, setComponents] = useState(["Add a new Task"]); //["Add a new Task"] est optionel, c'est pour en mettre un de base.
+    const [events, setEvents] = useState([]); // liste d'event pour le calendrier.
+
+    const localizer = momentLocalizer(moment); // localizer (utile pour le calendar).
+
 
     /**
      * Est appeler lors du onClick du button => crée les Todos (checkbox + text)
@@ -27,10 +32,25 @@ function App() {
             setComponents([...components,input.value]); // la nouvelle liste reprend les anciens (...components) et ont ajoute la nouvelle valeur (input.value).
         }
 
+        const start = document.getElementById('InputFrom'); // input date From.
+        const end = document.getElementById('InputTo'); // input date To.
+
+        // creation de l'event (dans le calendar)
+        let event = {
+            start: new Date(start.value),
+            end: new Date(end.value),
+            title: input.value
+        }
+
+        //ajout de l'event au useState utiliser par le calendrier pour le mettre a jour.
+        setEvents([...events,event]);
+
     }
+
 
     // Élément JSX (React) qui sera renvoyer quand ont appel App (voir sans main.jsx)
     return (
+
 
 
         <BrowserRouter>
@@ -57,7 +77,15 @@ function App() {
                         </div>
                     } />
                 {/* page calendar */}
-                    <Route path="calendar" element={<Calendar />} />
+                    <Route path="calendar" element={
+                        <Calendar
+                            localizer={localizer}
+                            events={events} // useState pour mettre a jour les évènements
+                            startAccessor="start"
+                            endAccessor="end"
+                            style={{ height: 500 }}
+                        />
+                    }/>
             </Routes>
         </BrowserRouter>
 
