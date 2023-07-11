@@ -9,6 +9,12 @@ export const InputAdd = (props) => {
 
         <div className="AddToDo">
             <input placeholder={props.placeHolder} id={"InputAdd"}></input>
+            <div className="flex">
+                <label>From :</label>
+                <input type={"date"} className="inputDate"/>
+                <label>To :</label>
+                <input type={"date"} className="inputDate"/>
+            </div>
             <button onClick={props.onClick}>{props.buttonText}</button>
         </div>
     );

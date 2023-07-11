@@ -1,8 +1,11 @@
 import './css/App.css'
 import {InputAdd} from "./assets/InputAdd.jsx";
 import {Title} from "./assets/Title.jsx";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {Todos} from "./assets/Todos.jsx";
+import Calendar from 'react-calendar'
+import ReactDOM from "react-dom/client";
+import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 
 
 /**
@@ -25,23 +28,41 @@ function App() {
             setComponents([...components,input.value]); // la nouvelle liste reprend les anciens (...components) et ont ajoute la nouvelle valeur (input.value).
         }
 
-
     }
 
     // Élément JSX (React) qui sera renvoyer quand ont appel App (voir sans main.jsx)
     return (
-    <>
-        <Title text={"My Todo App"}/> {/*utilisation du composant qui se trouve dans Title.jsx (ne pas oublier l'import ici et l'export dans Title.jsx).*/}
 
-        <div>
-            {/*utilisation du composant qui se trouve dans InputAdd.jsx (ne pas oublier l'import ici et l'export dans InputAdd.jsx).*/}
-            <InputAdd onClick={addTodos} placeHolder="Type a new todo" buttonText={"Add"} id={"InputAdd"}/>
-            {components.map((item, i) => ( <Todos text={item} key={`Todos_${i}`} /> ))} {/* Création des Todos en fonction de la liste components*/}
-        </div>
-    </>
+
+        <BrowserRouter>
+
+            <Title text={"My Todo App"}/> {/*utilisation du composant qui se trouve dans Title.jsx (ne pas oublier l'import ici et l'export dans Title.jsx).*/}
+
+            <Link to="/list">My List</Link> <Link to="/calendar">My Calendar</Link>
+
+            <Routes>
+                <Route index path="/" element={
+                    <div id={"InputAdd"}>
+                        {/*utilisation du composant qui se trouve dans InputAdd.jsx (ne pas oublier l'import ici et l'export dans InputAdd.jsx).*/}
+                        <InputAdd onClick={addTodos} placeHolder="Type a new todo" buttonText={"Add"} id={"InputAdd"}/>
+                        {components.map((item, i) => ( <Todos text={item} key={`Todos_${i}`} /> ))} {/* Création des Todos en fonction de la liste components*/}
+                    </div>
+                } />
+                    <Route index path="list" element={
+                        <div>
+                            {/*utilisation du composant qui se trouve dans InputAdd.jsx (ne pas oublier l'import ici et l'export dans InputAdd.jsx).*/}
+                            <InputAdd onClick={addTodos} placeHolder="Type a new todo" buttonText={"Add"} id={"InputAdd"}/>
+                            {components.map((item, i) => ( <Todos text={item} key={`Todos_${i}`} /> ))} {/* Création des Todos en fonction de la liste components*/}
+                        </div>
+                    } />
+                    <Route path="calendar" element={<Calendar />} />
+            </Routes>
+        </BrowserRouter>
+
     );
 
 }
+
 
 export default App; //export de app pour pouvoir l'utiliser dans main.jsx
 
