@@ -10,6 +10,18 @@
   border: 5px solid #646cff;
 
 }
+.rbc-today {
+  background-color: #646cff !important;
+}
+
+.rbc-off-range-bg {
+  background-color: #313c5d !important;
+}
+
+.rbc-active{
+  color: white !important;
+  background-color: #646cff !important;
+}
 
 .flex{
   display: flex;
