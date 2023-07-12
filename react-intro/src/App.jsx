@@ -10,10 +10,23 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const LSKEY = "MyTodoApp";
 
-let todosStorage = window.localStorage.getItem(LSKEY + ".todos");
-let eventsStorage = window.localStorage.getItem(LSKEY + ".events");
+let todosStorage = '[]';
+let eventsStorage = '[]';
+
+console.log(window.localStorage.getItem(LSKEY + ".todos"));
+
+if(window.localStorage.getItem(LSKEY + ".todos") != null) {
+    todosStorage = window.localStorage.getItem(LSKEY + ".todos");
+}
+console.log(todosStorage);
 
 
+console.log(window.localStorage.getItem(LSKEY + ".events"));
+
+if(window.localStorage.getItem(LSKEY + ".events") != null) {
+    eventsStorage = window.localStorage.getItem(LSKEY + ".events");
+}
+console.log(eventsStorage);
 
 
 
@@ -26,6 +39,7 @@ function App() {
     // Permet de mettre a jour sans recharger la page ?
     // c'est une liste de string (textes) qui permettra de créer les checkbox + text (Todos)
     const [components, setComponents] = useState([...JSON.parse(todosStorage)]); //[...JSON.parse(todosStorage)] mets les components stocker localement au lancement  , c'est pour en mettre un de base.
+
     const [events, setEvents] = useState([...JSON.parse(eventsStorage)]); //[...JSON.parse(eventsStorage)] mets les evenements stocker localement au lancement  liste d'event pour le calendrier.
 
     const localizer = momentLocalizer(moment); // localizer (utile pour le calendar).
