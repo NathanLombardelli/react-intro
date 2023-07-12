@@ -2,14 +2,21 @@
     display: flex;
     font-size: 24px;
     justify-content: center;
-
+    align-items: center
 }
 .Todos input[type="checkbox"]{
     margin-right: 25px;
     width: 25px;
+    height: 25px;
+    cursor: pointer;
 }
 
 p{
     width: 350px;
+}
+
+.deleteBtn{
+
+    cursor: pointer;
 }
 

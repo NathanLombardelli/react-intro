@@ -1,4 +1,6 @@
 import '../css/Todos.css';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /**
  * component React : Checkbox + text
@@ -7,11 +9,12 @@ import '../css/Todos.css';
  */
 export const Todos = (props) => {
 
-  return (
+    return (
 
       <div className={"Todos"}>
         <input type={"checkbox"}/>
         <p>{props.text}</p>
+          <a><FontAwesomeIcon icon={faCircleXmark} className={"deleteBtn"} id={props.removeId} onClick={props.onClick}/></a>
       </div>
     );
 }

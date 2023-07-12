@@ -16,7 +16,7 @@ function App() {
 
     // Permet de mettre a jour sans recharger la page ?
     // c'est une liste de string (textes) qui permettra de créer les checkbox + text (Todos)
-    const [components, setComponents] = useState(["Add a new Task"]); //["Add a new Task"] est optionel, c'est pour en mettre un de base.
+    const [components, setComponents] = useState([]); //["Add a new Task"] est optionel, c'est pour en mettre un de base.
     const [events, setEvents] = useState([]); // liste d'event pour le calendrier.
 
     const localizer = momentLocalizer(moment); // localizer (utile pour le calendar).
@@ -48,7 +48,33 @@ function App() {
     }
 
 
-    // Élément JSX (React) qui sera renvoyer quand ont appel App (voir sans main.jsx)
+    function removeTodos(posTodos){
+        //supression composant.
+        let resultComponents = [];
+
+        for (let i = 0 ; i < components.length; i++){
+            if(i !== posTodos){
+                resultComponents.push(components[i]);
+            }
+        }
+
+        setComponents([...resultComponents]);
+
+        // suppression event dans calendrier.
+        let resultEvents = [];
+
+        for (let i = 0 ; i < events.length; i++){
+            if(i !== posTodos){
+                resultEvents.push(events[i]);
+            }
+        }
+
+        setEvents([...resultEvents]);
+
+    }
+
+
+    // Élément JSX (React) qui sera renvoyer quand ont appel App (voir dans main.jsx)
     return (
 
 
@@ -57,15 +83,15 @@ function App() {
 
             <Title text={"My Todo App"}/> {/*utilisation du composant qui se trouve dans Title.jsx (ne pas oublier l'import ici et l'export dans Title.jsx).*/}
 
-            <Link to="/list">My List</Link> <Link to="/calendar">My Calendar</Link> {/* les liens vers les différentes pages (to = href) */}
+            <Link to="/list" className={"nav"}>My List</Link> <Link to="/calendar" className={"nav"}>My Calendar</Link> {/* les liens vers les différentes pages (to = href) */}
 
             <Routes>{/* definitions des différentes pages */}
                 {/* page par défault (index ) */}
                 <Route index path="/" element={
-                    <div id={"InputAdd"}>
+                    <div>
                         {/*utilisation du composant qui se trouve dans InputAdd.jsx (ne pas oublier l'import ici et l'export dans InputAdd.jsx).*/}
                         <InputAdd onClick={addTodos} placeHolder="Type a new todo" buttonText={"Add"} id={"InputAdd"}/>
-                        {components.map((item, i) => ( <Todos text={item} key={`Todos_${i}`} /> ))} {/* Création des Todos en fonction de la liste components*/}
+                        {components.map((item, i) => ( <Todos text={item} key={`Todos_${i}`} onClick={() => removeTodos(i)} /> ))} {/* Création des Todos en fonction de la liste components*/}
                     </div>
                 } />
                 {/* page list */}
@@ -73,7 +99,7 @@ function App() {
                         <div>
                             {/*utilisation du composant qui se trouve dans InputAdd.jsx (ne pas oublier l'import ici et l'export dans InputAdd.jsx).*/}
                             <InputAdd onClick={addTodos} placeHolder="Type a new todo" buttonText={"Add"} id={"InputAdd"}/>
-                            {components.map((item, i) => ( <Todos text={item} key={`Todos_${i}`} /> ))} {/* Création des Todos en fonction de la liste components*/}
+                            {components.map((item, i) => ( <Todos text={item} key={`Todos_${i}`} removeId={i} onClick={() => removeTodos(i)} /> ) )} {/* Création des Todos en fonction de la liste components*/}
                         </div>
                     } />
                 {/* page calendar */}
